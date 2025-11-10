@@ -1,0 +1,3 @@
+Región Norte
+Región Centro
+Región Sur

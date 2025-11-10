@@ -1,0 +1,22 @@
+# Build artifacts
+*.o
+*.exe
+*.out
+a.out
+main
+electoral_system
+
+# Data files (generated)
+resultados_*.txt
+censo_*.txt
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
