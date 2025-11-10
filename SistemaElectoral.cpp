@@ -327,9 +327,8 @@ void SistemaElectoral::guardarResultados(string archivo, bool segundaVuelta) con
         // Calcular votos por candidato en la región
         map<int, int> votosRegion;
         for (auto itC = (*itR)->getCiudades().begin(); itC != (*itR)->getCiudades().end(); ++itC) {
-            for (auto itCand = (*itC)->getCandidatos().begin(); 
-                 itCand != (*itC)->getCandidatos().end(); ++itCand) {
-                votosRegion[(*itCand)->getId()] += (*itCand)->getVotos();
+            for (auto itCand = candidatos.begin(); itCand != candidatos.end(); ++itCand) {
+                votosRegion[(*itCand)->getId()] += (*itC)->getVotosCandidato((*itCand)->getId());
             }
         }
         
@@ -381,6 +380,7 @@ void SistemaElectoral::simularVotacion(bool segundaVuelta) {
                     int candidatoIndex = rand() % numCandidatos;
                     auto it = candidatos.begin();
                     advance(it, candidatoIndex);
+                    (*itC)->agregarVotoCandidato((*it)->getId());
                     (*it)->agregarVoto();
                 }
             }
@@ -427,13 +427,14 @@ void SistemaElectoral::mostrarResultadosPorCiudad() const {
         
         for (auto itCand = candidatos.begin(); itCand != candidatos.end(); ++itCand) {
             Partido* partido = buscarPartido((*itCand)->getIdPartido());
+            int votos = (*itC)->getVotosCandidato((*itCand)->getId());
             double porcentaje = 0.0;
             if ((*itC)->getTotalVotos() > 0) {
-                porcentaje = ((*itCand)->getVotos() * 100.0) / (*itC)->getTotalVotos();
+                porcentaje = (votos * 100.0) / (*itC)->getTotalVotos();
             }
             cout << "  " << (*itCand)->getNombreCompleto() << " (" 
                  << (partido ? partido->getSigla() : "N/A") << "): " 
-                 << (*itCand)->getVotos() << " votos (" << fixed << setprecision(2) 
+                 << votos << " votos (" << fixed << setprecision(2) 
                  << porcentaje << "%)" << endl;
         }
     }
@@ -459,7 +460,7 @@ void SistemaElectoral::mostrarResultadosPorRegion() const {
         map<int, int> votosRegion;
         for (auto itC = (*itR)->getCiudades().begin(); itC != (*itR)->getCiudades().end(); ++itC) {
             for (auto itCand = candidatos.begin(); itCand != candidatos.end(); ++itCand) {
-                votosRegion[(*itCand)->getId()] += (*itCand)->getVotos();
+                votosRegion[(*itCand)->getId()] += (*itC)->getVotosCandidato((*itCand)->getId());
             }
         }
         

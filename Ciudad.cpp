@@ -32,6 +32,14 @@ list<Candidato*>& Ciudad::getCandidatos() {
     return candidatos;
 }
 
+int Ciudad::getVotosCandidato(int idCandidato) const {
+    auto it = votosPorCandidato.find(idCandidato);
+    if (it != votosPorCandidato.end()) {
+        return it->second;
+    }
+    return 0;
+}
+
 void Ciudad::setNombre(string nombre) {
     this->nombre = nombre;
 }
@@ -46,20 +54,28 @@ void Ciudad::setCensoElectoral(int censo) {
 
 void Ciudad::agregarCandidato(Candidato* candidato) {
     candidatos.push_back(candidato);
+    votosPorCandidato[candidato->getId()] = 0;
 }
 
 void Ciudad::agregarVotoBlanco() {
     votosBlancos++;
 }
 
+void Ciudad::agregarVotoCandidato(int idCandidato) {
+    votosPorCandidato[idCandidato]++;
+}
+
 void Ciudad::reiniciarVotos() {
     votosBlancos = 0;
+    for (auto it = votosPorCandidato.begin(); it != votosPorCandidato.end(); ++it) {
+        it->second = 0;
+    }
 }
 
 int Ciudad::getTotalVotos() const {
     int total = votosBlancos;
-    for (auto it = candidatos.begin(); it != candidatos.end(); ++it) {
-        total += (*it)->getVotos();
+    for (auto it = votosPorCandidato.begin(); it != votosPorCandidato.end(); ++it) {
+        total += it->second;
     }
     return total;
 }

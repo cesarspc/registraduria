@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include <map>
 #include "Candidato.h"
 using namespace std;
 
@@ -18,6 +19,7 @@ private:
     int censoElectoral; // Número de votantes habilitados
     int votosBlancos;
     list<Candidato*> candidatos; // Lista de candidatos
+    map<int, int> votosPorCandidato; // Votos por candidato en esta ciudad
 
 public:
     // Constructor
@@ -30,6 +32,7 @@ public:
     int getCensoElectoral() const;
     int getVotosBlancos() const;
     list<Candidato*>& getCandidatos();
+    int getVotosCandidato(int idCandidato) const;
     
     // Setters
     void setNombre(string nombre);
@@ -39,6 +42,7 @@ public:
     // Métodos de votación
     void agregarCandidato(Candidato* candidato);
     void agregarVotoBlanco();
+    void agregarVotoCandidato(int idCandidato);
     void reiniciarVotos();
     int getTotalVotos() const;
 };
