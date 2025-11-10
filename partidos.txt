@@ -1,0 +1,4 @@
+Partido Liberal|PL
+Partido Conservador|PC
+Partido Verde|PV
+Partido Social|PS

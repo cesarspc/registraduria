@@ -1,0 +1,4 @@
+Juan|Pérez|M|1
+María|González|F|2
+Carlos|Rodríguez|M|3
+Ana|Martínez|F|4

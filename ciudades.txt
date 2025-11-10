@@ -1,0 +1,6 @@
+Bogotá|1|8000000
+Medellín|1|2500000
+Cali|2|2400000
+Barranquilla|2|1200000
+Cartagena|3|1000000
+Bucaramanga|3|600000
